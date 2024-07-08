@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -84,7 +83,6 @@ const occupations = [
 ];
 
 const Index = () => {
-  const [name, setName] = useState("");
   const [platform, setPlatform] = useState("");
   const [selectedQuestion, setSelectedQuestion] = useState("");
   const [generatedBio, setGeneratedBio] = useState("");
@@ -104,13 +102,13 @@ const Index = () => {
     const randomOccupation = generateRandomOccupation();
 
     const bios = [
-      `🎭 ${name} here, your 21-year-old ${randomOccupation} with a twist! When I'm not busy ${randomInterests[0]}, you'll find me ${randomInterests[1]} like it's an Olympic sport. Fair warning: my ${randomInterests[2]} skills are so good, they should be illegal. Swipe right if you're ready for an adventure that's part comedy show, part TED talk, and 100% unforgettable!`,
+      `🎭 Your 21-year-old ${randomOccupation} with a twist! When I'm not busy ${randomInterests[0]}, you'll find me ${randomInterests[1]} like it's an Olympic sport. Fair warning: my ${randomInterests[2]} skills are so good, they should be illegal. Swipe right if you're ready for an adventure that's part comedy show, part TED talk, and 100% unforgettable!`,
       
-      `🚀 Buckle up, buttercup! ${name}, 21, ${randomOccupation} by day, ${randomInterests[0]} enthusiast by night. I'm on a mission to find someone who can keep up with my ${randomInterests[1]} obsession and doesn't mind my terrible ${randomInterests[2]} puns. Bonus points if you can teach me a new skill – I promise to be a hilariously eager student!`,
+      `🚀 Buckle up, buttercup! ${randomOccupation} by day, ${randomInterests[0]} enthusiast by night. I'm on a mission to find someone who can keep up with my ${randomInterests[1]} obsession and doesn't mind my terrible ${randomInterests[2]} puns. Bonus points if you can teach me a new skill – I promise to be a hilariously eager student!`,
       
-      `🌈 Attention all ${randomInterests[0]} aficionados and ${randomInterests[1]} newbies! ${name}, your friendly neighborhood 21-year-old ${randomOccupation}, is here to shake things up. I'm 50% ${randomInterests[2]} expert, 50% amateur comedian, and 100% ready to make you laugh until you snort. Let's create some stories worth embellishing on our future grandkids!`,
+      `🌈 Attention all ${randomInterests[0]} aficionados and ${randomInterests[1]} newbies! Your friendly neighborhood 21-year-old ${randomOccupation} is here to shake things up. I'm 50% ${randomInterests[2]} expert, 50% amateur comedian, and 100% ready to make you laugh until you snort. Let's create some stories worth embellishing on our future grandkids!`,
       
-      `🎉 Hey there! I'm ${name}, a 21-year-old ${randomOccupation} with a knack for ${randomInterests[0]} and a weakness for bad ${randomInterests[1]} jokes. When I'm not busy pretending to be a pro at ${randomInterests[2]}, I'm probably planning my next big adventure or perfecting my coffee art. Warning: Swiping right may result in spontaneous laughter and an irresistible urge to try new things!`
+      `🎉 Hey there! I'm a 21-year-old ${randomOccupation} with a knack for ${randomInterests[0]} and a weakness for bad ${randomInterests[1]} jokes. When I'm not busy pretending to be a pro at ${randomInterests[2]}, I'm probably planning my next big adventure or perfecting my coffee art. Warning: Swiping right may result in spontaneous laughter and an irresistible urge to try new things!`
     ];
 
     setGeneratedBio(bios[Math.floor(Math.random() * bios.length)]);
@@ -149,10 +147,6 @@ const Index = () => {
       
       <form className="space-y-4 mb-6">
         <div>
-          <Label htmlFor="name">Name</Label>
-          <Input id="name" name="name" value={name} onChange={(e) => setName(e.target.value)} />
-        </div>
-        <div>
           <Label>Select Platform</Label>
           <RadioGroup value={platform} onValueChange={setPlatform} className="flex space-x-4">
             <div className="flex items-center space-x-2">
@@ -184,7 +178,7 @@ const Index = () => {
         )}
       </form>
 
-      <Button onClick={generateContent} className="w-full mb-6" disabled={!name || !platform || !selectedQuestion}>Generate Content</Button>
+      <Button onClick={generateContent} className="w-full mb-6" disabled={!platform || !selectedQuestion}>Generate Content</Button>
 
       {generatedBio && (
         <Card className="mb-6">
