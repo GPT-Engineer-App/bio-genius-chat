@@ -4,8 +4,9 @@ import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
-const profileQuestions = [
+const bumbleQuestions = [
   "I guarantee you that...",
   "I'm a great +1 because...",
   "What makes a relationship great is...",
@@ -47,6 +48,29 @@ const profileQuestions = [
   "Perfect first date..."
 ];
 
+const tinderQuestions = [
+  "My life goal is...",
+  "My biggest fear is...",
+  "My favorite travel story...",
+  "I'm looking for...",
+  "The one thing I'd like to know about you is...",
+  "My ideal date night...",
+  "My hidden talent...",
+  "My guilty pleasure...",
+  "My most controversial opinion...",
+  "My favorite way to waste time...",
+  "The way to win me over is...",
+  "My love language is...",
+  "My ideal weekend includes...",
+  "My dream job would be...",
+  "My favorite childhood memory...",
+  "My go-to karaoke song...",
+  "My biggest pet peeve...",
+  "My favorite book/movie/TV show...",
+  "My most embarrassing moment...",
+  "My idea of a perfect day..."
+];
+
 const interests = [
   "traveling", "photography", "yoga", "cooking", "reading",
   "hiking", "painting", "dancing", "music", "fashion",
@@ -61,7 +85,8 @@ const occupations = [
 
 const Index = () => {
   const [name, setName] = useState("");
-  const [selectedQuestion, setSelectedQuestion] = useState(profileQuestions[0]);
+  const [platform, setPlatform] = useState("");
+  const [selectedQuestion, setSelectedQuestion] = useState("");
   const [generatedBio, setGeneratedBio] = useState("");
   const [generatedAnswer, setGeneratedAnswer] = useState("");
 
@@ -128,28 +153,43 @@ const Index = () => {
           <Input id="name" name="name" value={name} onChange={(e) => setName(e.target.value)} />
         </div>
         <div>
-          <Label htmlFor="profileQuestion">Select a profile question</Label>
-          <Select onValueChange={setSelectedQuestion} defaultValue={selectedQuestion}>
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select a question" />
-            </SelectTrigger>
-            <SelectContent>
-              {profileQuestions.map((question, index) => (
-                <SelectItem key={index} value={question}>
-                  {question}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <Label>Select Platform</Label>
+          <RadioGroup value={platform} onValueChange={setPlatform} className="flex space-x-4">
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="bumble" id="bumble" />
+              <Label htmlFor="bumble">Bumble</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="tinder" id="tinder" />
+              <Label htmlFor="tinder">Tinder</Label>
+            </div>
+          </RadioGroup>
         </div>
+        {platform && (
+          <div>
+            <Label htmlFor="profileQuestion">Select a profile question</Label>
+            <Select onValueChange={setSelectedQuestion} value={selectedQuestion}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select a question" />
+              </SelectTrigger>
+              <SelectContent>
+                {(platform === 'bumble' ? bumbleQuestions : tinderQuestions).map((question, index) => (
+                  <SelectItem key={index} value={question}>
+                    {question}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        )}
       </form>
 
-      <Button onClick={generateContent} className="w-full mb-6">Generate Content</Button>
+      <Button onClick={generateContent} className="w-full mb-6" disabled={!name || !platform || !selectedQuestion}>Generate Content</Button>
 
       {generatedBio && (
         <Card className="mb-6">
           <CardHeader>
-            <CardTitle>Generated Bio</CardTitle>
+            <CardTitle>Generated Bio for {platform.charAt(0).toUpperCase() + platform.slice(1)}</CardTitle>
           </CardHeader>
           <CardContent>
             <p>{generatedBio}</p>
