@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -50,53 +49,82 @@ const profileQuestions = [
   "Perfect first date..."
 ];
 
+const interests = [
+  "traveling", "photography", "yoga", "cooking", "reading",
+  "hiking", "painting", "dancing", "music", "fashion",
+  "fitness", "writing", "gardening", "volunteering", "meditation",
+  "film", "technology", "animals", "art", "sports"
+];
+
+const occupations = [
+  "student", "teacher", "nurse", "artist", "entrepreneur",
+  "marketing specialist", "software developer", "designer", "writer", "fitness instructor"
+];
+
+const locations = [
+  "New York", "Los Angeles", "Chicago", "San Francisco", "Miami",
+  "Seattle", "Boston", "Austin", "Denver", "Nashville"
+];
+
 const Index = () => {
-  const [userInfo, setUserInfo] = useState({
-    name: "",
-    age: "",
-    interests: "",
-    occupation: "",
-    location: "",
-  });
-
+  const [name, setName] = useState("");
   const [selectedQuestion, setSelectedQuestion] = useState(profileQuestions[0]);
-  const [generatedBios, setGeneratedBios] = useState([]);
-  const [generatedAnswers, setGeneratedAnswers] = useState([]);
+  const [generatedBio, setGeneratedBio] = useState("");
+  const [generatedAnswer, setGeneratedAnswer] = useState("");
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setUserInfo((prevInfo) => ({
-      ...prevInfo,
-      [name]: value,
-    }));
+  const generateRandomInterests = () => {
+    const shuffled = interests.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, 3).join(", ");
+  };
+
+  const generateRandomOccupation = () => {
+    return occupations[Math.floor(Math.random() * occupations.length)];
+  };
+
+  const generateRandomLocation = () => {
+    return locations[Math.floor(Math.random() * locations.length)];
   };
 
   const generateContent = () => {
-    // Placeholder function to simulate bio generation
-    const fakeBios = [
-      `${userInfo.name}, ${userInfo.age} - ${userInfo.occupation} in ${userInfo.location}. Passionate about ${userInfo.interests}.`,
-      `${userInfo.age}-year-old ${userInfo.occupation} seeking adventure in ${userInfo.location}. Let's bond over ${userInfo.interests}!`,
-    ];
-    setGeneratedBios(fakeBios);
+    const randomInterests = generateRandomInterests();
+    const randomOccupation = generateRandomOccupation();
+    const randomLocation = generateRandomLocation();
 
-    // Placeholder function to simulate answer generation
-    const fakeAnswers = [
-      { question: "What's your ideal first date?", answer: `A day exploring ${userInfo.location} and discussing ${userInfo.interests}.` },
-      { question: "What's your favorite travel destination?", answer: `Any place where I can practice my ${userInfo.interests}.` },
-      { question: selectedQuestion, answer: generateAnswerForQuestion(selectedQuestion) },
+    const bios = [
+      `${name}, 21 - ${randomOccupation} in ${randomLocation}. Passionate about ${randomInterests}.`,
+      `21-year-old ${randomOccupation} seeking adventure in ${randomLocation}. Let's bond over ${randomInterests}!`,
+      `${name} here! 21 and living my best life in ${randomLocation}. When I'm not ${randomOccupation}, you'll find me ${randomInterests.split(", ")[0]}.`,
+      `${randomLocation}-based ${randomOccupation}, 21. Looking for someone to share my love for ${randomInterests} with.`,
     ];
-    setGeneratedAnswers(fakeAnswers);
-  };
 
-  const generateAnswerForQuestion = (question) => {
-    // This is a placeholder function. In a real implementation, you'd use AI or more sophisticated logic.
+    setGeneratedBio(bios[Math.floor(Math.random() * bios.length)]);
+
     const answers = {
-      "I guarantee you that...": `I guarantee you that I'll always be up for ${userInfo.interests}.`,
-      "I'm a great +1 because...": `I'm a great +1 because I'm always ready to talk about ${userInfo.interests} or explore ${userInfo.location}.`,
-      "What makes a relationship great is...": `What makes a relationship great is shared interests like ${userInfo.interests} and mutual respect.`,
-      // Add more predefined answers for other questions here
+      "I guarantee you that...": [
+        `I guarantee you that I'll always be up for a spontaneous adventure, whether it's trying a new ${randomInterests.split(", ")[0]} class or exploring hidden gems in ${randomLocation}.`,
+        `I guarantee you that I'll never stop learning and growing. Being a 21-year-old ${randomOccupation} is just the beginning of my journey!`,
+        `I guarantee you that I'll bring positive energy and a great playlist to any situation. Life's too short for bad vibes and boring music!`
+      ],
+      "I'm a great +1 because...": [
+        `I'm a great +1 because I'm always ready to try new things. From ${randomInterests} to your favorite hobbies, I'm in!`,
+        `I'm a great +1 because I can turn any outing into an adventure. Plus, being a ${randomOccupation} means I've got some interesting stories to share!`,
+        `I'm a great +1 because I'm equally comfortable getting dressed up for a night out or having a cozy night in with takeout and movies.`
+      ],
+      "What makes a relationship great is...": [
+        `What makes a relationship great is shared adventures and individual growth. Let's explore ${randomLocation} together while supporting each other's dreams!`,
+        `What makes a relationship great is open communication, lots of laughter, and a willingness to try each other's interests. Ready to teach me about your passions?`,
+        `What makes a relationship great is mutual respect, shared values, and the ability to be silly together. Life's too short for boring relationships!`
+      ],
     };
-    return answers[question] || `As a ${userInfo.age}-year-old ${userInfo.occupation}, ${question.toLowerCase()} is something I think about often.`;
+
+    const defaultAnswers = [
+      `As a 21-year-old ${randomOccupation} living in ${randomLocation}, ${selectedQuestion.toLowerCase()} is something I think about often. I believe it's all about embracing new experiences and staying true to yourself.`,
+      `That's a great question! At 21, I'm still figuring things out, but I know that ${selectedQuestion.toLowerCase()} involves a lot of self-discovery and fun. Want to explore that together?`,
+      `Being a 21-year-old ${randomOccupation}, I'd say ${selectedQuestion.toLowerCase()} is about balancing ambition with enjoyment. Whether it's through ${randomInterests} or new adventures, I'm always up for growth!`
+    ];
+
+    const questionAnswers = answers[selectedQuestion] || defaultAnswers;
+    setGeneratedAnswer(questionAnswers[Math.floor(Math.random() * questionAnswers.length)]);
   };
 
   return (
@@ -106,23 +134,7 @@ const Index = () => {
       <form className="space-y-4 mb-6">
         <div>
           <Label htmlFor="name">Name</Label>
-          <Input id="name" name="name" value={userInfo.name} onChange={handleInputChange} />
-        </div>
-        <div>
-          <Label htmlFor="age">Age</Label>
-          <Input id="age" name="age" type="number" value={userInfo.age} onChange={handleInputChange} />
-        </div>
-        <div>
-          <Label htmlFor="interests">Interests</Label>
-          <Textarea id="interests" name="interests" value={userInfo.interests} onChange={handleInputChange} />
-        </div>
-        <div>
-          <Label htmlFor="occupation">Occupation</Label>
-          <Input id="occupation" name="occupation" value={userInfo.occupation} onChange={handleInputChange} />
-        </div>
-        <div>
-          <Label htmlFor="location">Location</Label>
-          <Input id="location" name="location" value={userInfo.location} onChange={handleInputChange} />
+          <Input id="name" name="name" value={name} onChange={(e) => setName(e.target.value)} />
         </div>
         <div>
           <Label htmlFor="profileQuestion">Select a profile question</Label>
@@ -143,31 +155,25 @@ const Index = () => {
 
       <Button onClick={generateContent} className="w-full mb-6">Generate Content</Button>
 
-      {generatedBios.length > 0 && (
+      {generatedBio && (
         <Card className="mb-6">
           <CardHeader>
-            <CardTitle>Generated Bios</CardTitle>
+            <CardTitle>Generated Bio</CardTitle>
           </CardHeader>
           <CardContent>
-            {generatedBios.map((bio, index) => (
-              <p key={index} className="mb-2">{bio}</p>
-            ))}
+            <p>{generatedBio}</p>
           </CardContent>
         </Card>
       )}
 
-      {generatedAnswers.length > 0 && (
+      {generatedAnswer && (
         <Card>
           <CardHeader>
-            <CardTitle>Answers to Profile Questions</CardTitle>
+            <CardTitle>Answer to Profile Question</CardTitle>
           </CardHeader>
           <CardContent>
-            {generatedAnswers.map((item, index) => (
-              <div key={index} className="mb-4">
-                <h3 className="font-semibold">{item.question}</h3>
-                <p>{item.answer}</p>
-              </div>
-            ))}
+            <h3 className="font-semibold mb-2">{selectedQuestion}</h3>
+            <p>{generatedAnswer}</p>
           </CardContent>
         </Card>
       )}
