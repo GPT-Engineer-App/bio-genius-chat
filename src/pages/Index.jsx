@@ -67,7 +67,7 @@ const Index = () => {
 
   const generateRandomInterests = () => {
     const shuffled = interests.sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, 3).join(", ");
+    return shuffled.slice(0, 3);
   };
 
   const generateRandomOccupation = () => {
@@ -79,36 +79,39 @@ const Index = () => {
     const randomOccupation = generateRandomOccupation();
 
     const bios = [
-      `${name}, 21 - ${randomOccupation}. Passionate about ${randomInterests}.`,
-      `21-year-old ${randomOccupation} seeking adventure. Let's bond over ${randomInterests}!`,
-      `${name} here! 21 and living my best life. When I'm not ${randomOccupation}, you'll find me ${randomInterests.split(", ")[0]}.`,
-      `${randomOccupation}, 21. Looking for someone to share my love for ${randomInterests} with.`,
+      `🎭 ${name} here, your 21-year-old ${randomOccupation} with a twist! When I'm not busy ${randomInterests[0]}, you'll find me ${randomInterests[1]} like it's an Olympic sport. Fair warning: my ${randomInterests[2]} skills are so good, they should be illegal. Swipe right if you're ready for an adventure that's part comedy show, part TED talk, and 100% unforgettable!`,
+      
+      `🚀 Buckle up, buttercup! ${name}, 21, ${randomOccupation} by day, ${randomInterests[0]} enthusiast by night. I'm on a mission to find someone who can keep up with my ${randomInterests[1]} obsession and doesn't mind my terrible ${randomInterests[2]} puns. Bonus points if you can teach me a new skill – I promise to be a hilariously eager student!`,
+      
+      `🌈 Attention all ${randomInterests[0]} aficionados and ${randomInterests[1]} newbies! ${name}, your friendly neighborhood 21-year-old ${randomOccupation}, is here to shake things up. I'm 50% ${randomInterests[2]} expert, 50% amateur comedian, and 100% ready to make you laugh until you snort. Let's create some stories worth embellishing on our future grandkids!`,
+      
+      `🎉 Hey there! I'm ${name}, a 21-year-old ${randomOccupation} with a knack for ${randomInterests[0]} and a weakness for bad ${randomInterests[1]} jokes. When I'm not busy pretending to be a pro at ${randomInterests[2]}, I'm probably planning my next big adventure or perfecting my coffee art. Warning: Swiping right may result in spontaneous laughter and an irresistible urge to try new things!`
     ];
 
     setGeneratedBio(bios[Math.floor(Math.random() * bios.length)]);
 
     const answers = {
       "I guarantee you that...": [
-        `I guarantee you that I'll always be up for a spontaneous adventure, whether it's trying a new ${randomInterests.split(", ")[0]} class or exploring hidden gems in our area.`,
-        `I guarantee you that I'll never stop learning and growing. Being a 21-year-old ${randomOccupation} is just the beginning of my journey!`,
-        `I guarantee you that I'll bring positive energy and a great playlist to any situation. Life's too short for bad vibes and boring music!`
+        `I guarantee you that I'll turn even the most mundane date into an epic adventure. Grocery shopping? Let's make it a scavenger hunt. Waiting in line? Impromptu dance party. I'm basically a walking, talking fun amplifier – batteries included!`,
+        `I guarantee you that you'll never have a dull moment with me. Whether we're ${randomInterests[0]} or attempting to master ${randomInterests[1]}, I'll keep you laughing (even if it's at my own expense). Bonus: I make a mean grilled cheese that's been known to cure everything from bad days to minor apocalypses.`,
+        `I guarantee you that I'll always be up for trying something new, no matter how ridiculous it sounds. Want to start a ${randomInterests[2]} club for beginners? I'm in. Fancy learning to yodel while ${randomInterests[0]}? Let's do it. Life's too short for boring stories, and I'm here to collect the wildest ones with you!`
       ],
       "I'm a great +1 because...": [
-        `I'm a great +1 because I'm always ready to try new things. From ${randomInterests} to your favorite hobbies, I'm in!`,
-        `I'm a great +1 because I can turn any outing into an adventure. Plus, being a ${randomOccupation} means I've got some interesting stories to share!`,
-        `I'm a great +1 because I'm equally comfortable getting dressed up for a night out or having a cozy night in with takeout and movies.`
+        `I'm a great +1 because I'm basically a Swiss Army knife of fun. Need someone to charm your boss at the company picnic? I've got you. Want a partner for a spontaneous road trip? I'll have snacks packed before you finish the sentence. Plus, as a ${randomOccupation}, I've got an endless supply of conversation starters and a talent for turning awkward silences into hilarious memories.`,
+        `I'm a great +1 because I come with a built-in entertainment system. Boring wedding? I'll start a conga line. Stuffy dinner party? My impressions will save the day. Long wait at the DMV? I'll turn it into an impromptu ${randomInterests[1]} lesson. With me by your side, every outing becomes a potential story for the grandkids (or at least your Instagram).`,
+        `I'm a great +1 because I'm fluent in both sarcasm and sincerity, with a minor in dad jokes. Whether we're ${randomInterests[0]} or just grabbing coffee, I'll keep you laughing and maybe even teach you a thing or two about ${randomInterests[2]}. Warning: Side effects may include sore cheeks from smiling too much and a sudden urge to go on more adventures.`
       ],
       "What makes a relationship great is...": [
-        `What makes a relationship great is shared adventures and individual growth. Let's explore the world together while supporting each other's dreams!`,
-        `What makes a relationship great is open communication, lots of laughter, and a willingness to try each other's interests. Ready to teach me about your passions?`,
-        `What makes a relationship great is mutual respect, shared values, and the ability to be silly together. Life's too short for boring relationships!`
+        `What makes a relationship great is a perfect blend of laughter, adventure, and the ability to be absolute goofballs together. It's about finding someone who's down to binge-watch obscure documentaries about ${randomInterests[0]} one day and go on a spontaneous ${randomInterests[1]} expedition the next. Throw in some witty banter, mutual respect, and a shared love for terrible puns, and you've got the recipe for something magical.`,
+        `What makes a relationship great is having a partner in crime who's equally excited about life's big moments and its silly little joys. It's about supporting each other's dreams (even if one of us decides to become a professional ${randomInterests[2]} instructor) and creating inside jokes that make absolutely no sense to anyone else. Add a dash of romance, a sprinkle of shared ${randomInterests[0]} sessions, and voilà – relationship goals!`,
+        `What makes a relationship great is finding someone who makes the ordinary extraordinary. It's about turning grocery shopping into an epic quest, lazy Sundays into ${randomInterests[1]} masterclasses, and bad days into opportunities for growth (or at least really good takeout). The secret ingredient? A hefty dose of laughter, mixed with genuine care and the mutual understanding that life's too short not to enjoy every moment together.`
       ],
     };
 
     const defaultAnswers = [
-      `As a 21-year-old ${randomOccupation}, ${selectedQuestion.toLowerCase()} is something I think about often. I believe it's all about embracing new experiences and staying true to yourself.`,
-      `That's a great question! At 21, I'm still figuring things out, but I know that ${selectedQuestion.toLowerCase()} involves a lot of self-discovery and fun. Want to explore that together?`,
-      `Being a 21-year-old ${randomOccupation}, I'd say ${selectedQuestion.toLowerCase()} is about balancing ambition with enjoyment. Whether it's through ${randomInterests} or new adventures, I'm always up for growth!`
+      `Oh boy, ${selectedQuestion.toLowerCase()} is a loaded question! As a 21-year-old ${randomOccupation}, I'd say it's all about embracing the chaos with a smile. Whether I'm fumbling through ${randomInterests[0]} or pretending to be an expert at ${randomInterests[1]}, life's too short not to laugh at yourself. So, let's grab a coffee, swap embarrassing stories, and see if we can turn this question into our next great adventure!`,
+      `Now that's a question to make a ${randomOccupation} scratch their head! At the ripe old age of 21, I've discovered that ${selectedQuestion.toLowerCase()} is best approached with a mix of curiosity, humor, and a willingness to look silly. Whether we're bonding over our shared love of ${randomInterests[2]} or debating the finer points of ${randomInterests[0]}, I'm all about creating memories that'll make us chuckle years down the line.`,
+      `As a 21-year-old ${randomOccupation} with a penchant for ${randomInterests[1]}, I'd say ${selectedQuestion.toLowerCase()} is the perfect recipe for growth, giggles, and maybe a few graceful (or not so graceful) stumbles along the way. I'm still figuring it out, but I know it involves a lot of self-discovery, fun, and probably a few embarrassing stories we'll laugh about later. Care to join me on this hilarious journey of trial and error?`
     ];
 
     const questionAnswers = answers[selectedQuestion] || defaultAnswers;
