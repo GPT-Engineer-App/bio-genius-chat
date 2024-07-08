@@ -11,7 +11,6 @@ const profileQuestions = [
   "What makes a relationship great is...",
   "I quote too much from...",
   "I'm still not over...",
-  "My zombie apocalypse plan is...",
   "My personal hell is...",
   "If I could eat only one meal for the rest of my life it would be...",
   "I'm a real nerd about...",
@@ -28,7 +27,6 @@ const profileQuestions = [
   "If you saw the targeted ads I get, you'd think I'm...",
   "The quickest way to my heart is...",
   "My Year 5 teacher described me as...",
-  "If I could travel to any time in the past...",
   "When no one's watching I...",
   "As a child, I was really into...",
   "Something I learnt way later than I should have...",
@@ -61,11 +59,6 @@ const occupations = [
   "marketing specialist", "software developer", "designer", "writer", "fitness instructor"
 ];
 
-const locations = [
-  "New York", "Los Angeles", "Chicago", "San Francisco", "Miami",
-  "Seattle", "Boston", "Austin", "Denver", "Nashville"
-];
-
 const Index = () => {
   const [name, setName] = useState("");
   const [selectedQuestion, setSelectedQuestion] = useState(profileQuestions[0]);
@@ -81,27 +74,22 @@ const Index = () => {
     return occupations[Math.floor(Math.random() * occupations.length)];
   };
 
-  const generateRandomLocation = () => {
-    return locations[Math.floor(Math.random() * locations.length)];
-  };
-
   const generateContent = () => {
     const randomInterests = generateRandomInterests();
     const randomOccupation = generateRandomOccupation();
-    const randomLocation = generateRandomLocation();
 
     const bios = [
-      `${name}, 21 - ${randomOccupation} in ${randomLocation}. Passionate about ${randomInterests}.`,
-      `21-year-old ${randomOccupation} seeking adventure in ${randomLocation}. Let's bond over ${randomInterests}!`,
-      `${name} here! 21 and living my best life in ${randomLocation}. When I'm not ${randomOccupation}, you'll find me ${randomInterests.split(", ")[0]}.`,
-      `${randomLocation}-based ${randomOccupation}, 21. Looking for someone to share my love for ${randomInterests} with.`,
+      `${name}, 21 - ${randomOccupation}. Passionate about ${randomInterests}.`,
+      `21-year-old ${randomOccupation} seeking adventure. Let's bond over ${randomInterests}!`,
+      `${name} here! 21 and living my best life. When I'm not ${randomOccupation}, you'll find me ${randomInterests.split(", ")[0]}.`,
+      `${randomOccupation}, 21. Looking for someone to share my love for ${randomInterests} with.`,
     ];
 
     setGeneratedBio(bios[Math.floor(Math.random() * bios.length)]);
 
     const answers = {
       "I guarantee you that...": [
-        `I guarantee you that I'll always be up for a spontaneous adventure, whether it's trying a new ${randomInterests.split(", ")[0]} class or exploring hidden gems in ${randomLocation}.`,
+        `I guarantee you that I'll always be up for a spontaneous adventure, whether it's trying a new ${randomInterests.split(", ")[0]} class or exploring hidden gems in our area.`,
         `I guarantee you that I'll never stop learning and growing. Being a 21-year-old ${randomOccupation} is just the beginning of my journey!`,
         `I guarantee you that I'll bring positive energy and a great playlist to any situation. Life's too short for bad vibes and boring music!`
       ],
@@ -111,14 +99,14 @@ const Index = () => {
         `I'm a great +1 because I'm equally comfortable getting dressed up for a night out or having a cozy night in with takeout and movies.`
       ],
       "What makes a relationship great is...": [
-        `What makes a relationship great is shared adventures and individual growth. Let's explore ${randomLocation} together while supporting each other's dreams!`,
+        `What makes a relationship great is shared adventures and individual growth. Let's explore the world together while supporting each other's dreams!`,
         `What makes a relationship great is open communication, lots of laughter, and a willingness to try each other's interests. Ready to teach me about your passions?`,
         `What makes a relationship great is mutual respect, shared values, and the ability to be silly together. Life's too short for boring relationships!`
       ],
     };
 
     const defaultAnswers = [
-      `As a 21-year-old ${randomOccupation} living in ${randomLocation}, ${selectedQuestion.toLowerCase()} is something I think about often. I believe it's all about embracing new experiences and staying true to yourself.`,
+      `As a 21-year-old ${randomOccupation}, ${selectedQuestion.toLowerCase()} is something I think about often. I believe it's all about embracing new experiences and staying true to yourself.`,
       `That's a great question! At 21, I'm still figuring things out, but I know that ${selectedQuestion.toLowerCase()} involves a lot of self-discovery and fun. Want to explore that together?`,
       `Being a 21-year-old ${randomOccupation}, I'd say ${selectedQuestion.toLowerCase()} is about balancing ambition with enjoyment. Whether it's through ${randomInterests} or new adventures, I'm always up for growth!`
     ];
